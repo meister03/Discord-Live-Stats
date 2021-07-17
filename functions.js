@@ -1,44 +1,65 @@
+const shardStatsIntervals = new Map();
 function shardStats(i) {
- $(`body`).append(`<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
- <div class="modal-dialog" role="document">
+  const intervals = [...shardStatsIntervals.values()];
+  intervals.forEach(t => clearInterval(t));
+  
+  $.get(`/shard?shardid=${i}`, (data, status) => {
+    const color = (data.status == 'Online' ? 'green' : ((data.status == 'Offline' || data.status == 'Disconnected') ? 'red' : 'yellow'));
+    $(`#exampleModal`).remove()
+    $(`body`).append(`<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-sm" role="document"  onClose="shardStats(1)">
    <div class="dark-mode modal-content">
      <div class="dark-mode modal-header">
-       <h5 class="dark-mode modal-title" id="exampleModalLabel"><b>Status of Shard ${i}</b></h5>
+       <h5 class="dark-mode modal-title" id="exampleModalLabel"><b><span id="exampleModalTitle">Status of Shard ${i}</span></b></h5>
        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
          <span aria-hidden="true">&times;</span>
        </button>
      </div>
-     <div class="dark-mode modal-body">
-       
-     </div>
-    <!--- <div class="dark-mode modal-footer">
-       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-       <button type="button" class="btn btn-primary">Save changes</button>
-     </div> --->
+     <div id="Modal-Shard-Status-Card-Body" class="dark-mode modal-body">
+     <p class="shard-modal-button"><b><i id="modal-shard-status${i}"  class="fa fa-circle ${color}" aria-hidden="true"> ${data.status}</i></b></p>
+     <p class="shard-modal-button"><b><i id="modal-shard-cpu${i}"  class="fa fa-microchip" aria-hidden="true"> ${data.cpu}</i></b></p>
+     <p class="shard-modal-button"><b><i id="modal-shard-ram${i}" class="fas fa-memory" aria-hidden="true"> ${data.ram}</i></b></p>
+     <p class="shard-modal-button"><b><i id="modal-shard-ping${i}" class="fas fa-table-tennis" aria-hidden="true"> ${data.ping}</i></b></p>
+     <p class="shard-modal-button"><b><i id="modal-shard-servercount${i}" class="fa fa-server" aria-hidden="true"> ${data.servercount}</i></b></p>
    </div>
  </div>
-</div>>`)
-$('#exampleModal').modal('show')
+</div>`)
+  
+
+    const timeout = setInterval(() => {
+      $.get(`/shard?shardid=${i}`, (newdata, status) => {data= newdata;})
+      $('#exampleModalTitle').text(`Status of Shard ${i}`);
+      $(`#modal-shard-status${i}`).text(` ` + data.status);
+      $(`#modal-shard-cpu${i}`).text(` ` + data.cpu);
+      $(`#modal-shard-ram${i}`).text(` ` + data.ram);
+      $(`#modal-shard-ping${i}`).text(` ` + data.ping);
+      $(`#modal-shard-servercount${i}`).text(` ` + data.servercount);
+    }, 1000)
+    shardStatsIntervals.set(i, timeout)
+  
+    $('#exampleModal').modal('show')
+  })
 }
 
+
 function refreshStats(i) {
-    try {
-        $.get('status', (data, status) => {
-            if (!data) return;
-            newdata = data;
-            const ids = $("#shard-status-card div[id]").map(function () { return this.id; }).get();
-            for (let i = 0; i < ids.length; i++) {
-                const shard = newdata.find((x => `shard-button${x.id}` === ids[i]));
-                if (shard !== undefined) continue;
-                console.log(ids[i])
-                $(`#${ids[i]}`).remove();
-            }
-            for (let i = 0; i < newdata.length; i++) {
-                const color = (newdata[i].status === 'online' ? 'green' : 'red');
-                const classname = (newdata[i].status === 'online' ? 'normal' : 'alert');
-                const classnamecolor = (newdata[i].status === 'online' ? '#43b581' : '#ED4245');
-                if (!$(`#shard-button${i}`).length) {
-                    $("#shard-status-card").append(`<div id="shard-button${i}" class="shard-button">
+  try {
+    $.get('status', (data, status) => {
+      if (!data) return;
+      newdata = data;
+      const ids = $("#shard-status-card div[id]").map(function () { return this.id; }).get();
+      for (let i = 0; i < ids.length; i++) {
+        const shard = newdata.find((x => `shard-button${x.id}` === ids[i]));
+        if (shard !== undefined) continue;
+        console.log(ids[i])
+        $(`#${ids[i]}`).remove();
+      }
+      for (let i = 0; i < newdata.length; i++) {
+        const color = (newdata[i].status === 'online' ? 'green' : 'red');
+        const classname = (newdata[i].status === 'online' ? 'normal' : 'alert');
+        const classnamecolor = (newdata[i].status === 'online' ? '#43b581' : '#ED4245');
+        if (!$(`#shard-button${i}`).length) {
+          $("#shard-status-card").append(`<div id="shard-button${i}" class="shard-button">
                     <p id= "shard-button-name${i}" class="shard-button ${color}"><b>Shard ${newdata[i].id}</b>
                     </p>
                     <div class="shard-button ressource"><i class="fa fa-cog"></i><span>
@@ -48,21 +69,21 @@ function refreshStats(i) {
                         </span></div>
                     <p id="shard-button-log${i}" class="shard-button log ${classname}">${newdata[i].message}</p>
                   </div>`)
-                } else {
+        } else {
 
-                    $(`#shard-button-log${i}`).css('color', classnamecolor)
-                    $(`#shard-button-log${i}`).text(newdata[i].message);
-                    $(`#shard-button-name${i}`).removeClass('.shard-button red').addClass(`.shard-button ${color}`);
-                }
-            }
-        })
-    } catch (error) {
-        console.log(error)
-    }
+          $(`#shard-button-log${i}`).css('color', classnamecolor)
+          $(`#shard-button-log${i}`).text(newdata[i].message);
+          $(`#shard-button-name${i}`).removeClass('.shard-button red').addClass(`.shard-button ${color}`);
+        }
+      }
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 function killShard(i) {
-    alert("In function shardStats " + i);
+  alert("In function shardStats " + i);
 }
 
 

@@ -92,10 +92,21 @@ app.get("/status", (req, res) =>{
       ram:  `${getRamUsageinMB()} MB`,
     },
   ]
-    res.send(newposts)
+    res.send(newposts);
     if(i === 10) i =0;
     return;
 })
+
+
+app.get("/shard", (req, res) => {
+  const shardid = req.query.shardid;
+  res.send({status: 'Online', cpu: `${(Math.random()*3).toFixed(2)}%`, ram: `${getRamUsageinMB()} MB`, ping: `20 ms`, servercount: `1000 Guilds` })
+  return;
+})
+
+
+
+
 function getRamUsageinMB(){
   let mem = process.memoryUsage();
   return (mem.rss / 1024 / 1024).toFixed(2);
