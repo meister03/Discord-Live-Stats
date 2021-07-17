@@ -7,7 +7,7 @@ function shardStats(i) {
     const color = (data.status == 'Online' ? 'green' : ((data.status == 'Offline' || data.status == 'Disconnected') ? 'red' : 'yellow'));
     $(`#exampleModal`).remove()
     $(`body`).append(`<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
- <div class="modal-dialog modal-sm" role="document"  onClose="shardStats(1)">
+ <div class="modal-dialog modal-sm" role="document">
    <div class="dark-mode modal-content">
      <div class="dark-mode modal-header">
        <h5 class="dark-mode modal-title" id="exampleModalLabel"><b><span id="exampleModalTitle">Status of Shard ${i}</span></b></h5>
