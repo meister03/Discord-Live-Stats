@@ -1,3 +1,5 @@
+const config = require("./config.json")
+
 const express = require("express");
 const app = express();
 
@@ -38,7 +40,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname);
 
 app.get("/start", (req, res) => {
-  res.render("starter", {posts: posts});
+  res.render("starter", {posts: posts, config: config});
 
 
 });

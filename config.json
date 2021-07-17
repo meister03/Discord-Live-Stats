@@ -1,0 +1,8 @@
+{
+    "bot": {
+        "name": "Bump Reminder",
+        "icon": "/dist/img/BumpReminder.png",
+        "website": "bump-reminder.com"
+    }
+    
+}
