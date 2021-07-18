@@ -40,7 +40,8 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname);
 
 app.get("/start", (req, res) => {
-  res.render("starter", {posts: posts, config: config});
+  const data = {status: 'Online', cpu: `${(Math.random()*3).toFixed(2)}%`, ram: `${getRamUsageinMB()} MB`, ping: `20 ms`, servercount: `1000 Guilds`, color: `green` , start: `20m`};
+  res.render("starter", {posts: posts, config: config, data: data});
 
 
 });

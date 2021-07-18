@@ -8,7 +8,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><%=config.bot.name%></title>
+  <title>
+    <%=config.bot.name%>
+  </title>
   <link rel="icon" href="<%=config.bot.icon%>" type="image/x-icon">
 
   <!-- Google Font: Source Sans Pro -->
@@ -16,8 +18,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
- 
-  <link rel="stylesheet" href="dist/css/adminlte.css"> 
+
+  <link rel="stylesheet" href="dist/css/adminlte.css">
   <link rel="stylesheet" href="dist/css/custom.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script text="text/javascript" src="/functions.js"></script>
@@ -48,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
-       
+
 
         <li class="nav-item">
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -70,7 +72,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <a href="starter.html" class="brand-link">
         <img src="<%=config.bot.icon%>" alt="<%=config.bot.name%> Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
-        <span class="brand-text font-weight-light"><b><%=config.bot.name%></b></span>
+        <span class="brand-text font-weight-light"><b>
+            <%=config.bot.name%>
+          </b></span>
       </a>
 
       <!-- Sidebar -->
@@ -109,7 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <p>Stats</p>
                   </a>
                 </li>
-               
+
               </ul>
             </li>
             <li class="nav-item">
@@ -156,7 +160,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="card-header">
                   <h5 class="m-0 white"><b>General Stats</b></h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="color: white;">
+                  <p class="shard-modal-button">
+                  <b><i id="general-status" class="fa fa-circle <%=data.color%>"
+                        aria-hidden="true">
+                        <%=data.status%> since <%=data.start%>
+                      </i></b></p>
+                  <p class="shard-modal-button"><b><i id="general-status-cpu" class="fa fa-microchip"
+                        aria-hidden="true">
+                        <%=data.cpu%>
+                      </i></b></p>
+                  <p class="shard-modal-button"><b><i id="general-status-ram" class="fas fa-memory" aria-hidden="true">
+                        <%=data.ram%>
+                      </i></b></p>
+                  <p class="shard-modal-button"><b><i id="general-status-ping" class="fas fa-table-tennis"
+                        aria-hidden="true">
+                        <%=data.ping%>
+                      </i></b></p>
+                  <p class="shard-modal-button"><b><i id="general-status-servercount" class="fa fa-server"
+                        aria-hidden="true">
+                        <%=data.servercount%>
+                      </i></b></p>
                 </div>
               </div>
 
@@ -177,11 +201,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <p id="shard-button-name<%=i%>" class="shard-button <%=classname%>"><b>Shard <%=post.id %></b></p>
                       <div class="shard-button ressource"><i class="fa fa-cog"></i><span>
                           <button id="shard-button-ressource-stats<%=i%>" title="Statistics"
-                            class="shard-button managestats" onClick="shardStats(`<%=i%>`)"><i class="fa fa-hdd"></i></button>
+                            class="shard-button managestats" onClick="shardStats(`<%=i%>`)"><i
+                              class="fa fa-hdd"></i></button>
                           <button id="shard-button-ressource-refresh<%=i%>" title="Refresh Stats"
-                            class="shard-button managegreen" onClick="refreshStats(`<%=i%>`)"><i class="fa fa-retweet"></i></button>
+                            class="shard-button managegreen" onClick="refreshStats(`<%=i%>`)"><i
+                              class="fa fa-retweet"></i></button>
                           <button id="shard-button-ressource-kill<%=i%>" title="Kill Shard"
-                            class="shard-button managered"  onClick="killShard(`<%=i%>`)"><i class="fa fa-stop"></i></button>
+                            class="shard-button managered" onClick="killShard(`<%=i%>`)"><i
+                              class="fa fa-stop"></i></button>
                         </span></div>
                       <p id="shard-button-log<%=i%>" class="shard-button log <%=classname2%>">
                         <%=post.message%>
@@ -219,7 +246,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         Made with ❤
       </div>
       <!-- Default to the left -->
-      <strong>Copyright &copy; 2020-2021 <a href="<%=config.bot.website%>"><%=config.bot.name%></a>.</strong> All rights
+      <strong>Copyright &copy; 2020-2021 <a href="<%=config.bot.website%>">
+          <%=config.bot.name%>
+        </a>.</strong> All rights
       reserved.
     </footer>
   </div>

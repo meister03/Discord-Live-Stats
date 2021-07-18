@@ -159,11 +159,12 @@
     vertical-align: top;
     white-space: nowrap;
     overflow: hidden;
+    z-index: 4;
   }
 
   .shard-button.ressource:hover span{
     max-width: 25rem;
-    z-index: 2;
+    z-index: 5;
   }
 
 
@@ -202,7 +203,7 @@
 
 /*ICONS*/
 .green , fa-circle{
-  color: #43b581;
+  color: #57F287;
 }
 .red , fa-circle{
   color:  #ED4245;
