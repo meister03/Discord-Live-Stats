@@ -1,8 +1,12 @@
 {
     "bot": {
-        "name": "Bump Reminder",
+        "name": "Pluggy",
         "icon": "/dist/img/BumpReminder.png",
-        "website": "bump-reminder.com"
-    }
-    
+        "website": "discord.com",
+        "client_id": "842412458668458035",
+        "client_secret": "NnF3cfgDvxGdaH5LNAkn4UjBeBbjzNIR"
+    },
+    "redirect_uri": "http://localhost:3000/login",
+    "scope": ["identify"],
+    "owners": ["691288534375596062"]
 }
