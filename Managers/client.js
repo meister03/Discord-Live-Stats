@@ -12,6 +12,7 @@ class Client{
     post(){
         const shards = [...this.client.ws.shards.values()]
         const guilds = [...this.client.guilds.cache.values()]
+  
         for(let i = 0; i < shards.length; i++){
           const body =  {
              "id": shards[i]?.id,
@@ -26,7 +27,10 @@ class Client{
            fetch(`${this.config.stats_uri}stats`, {
              method: 'post',
              body:    JSON.stringify(body),
-             headers: { 'Content-Type': 'application/json' },
+             headers: { 
+                 'Authorization': Buffer.from(this.config.authorizationkey).toString('base64'),
+                 'Content-Type': 'application/json' 
+             },
            }).catch((e) => console.log(new Error(e)))
         }
     }
@@ -35,7 +39,10 @@ class Client{
           fetch(`${this.config.stats_uri}deleteShards`, {
             method: 'post',
             body:  JSON.stringify({shards: 'all'}),
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Authorization': Buffer.from(this.config.authorizationkey).toString('base64'),
+                'Content-Type': 'application/json' 
+            },
           }).catch((e) => console.log(new Error(e)))
     }
 

@@ -79,8 +79,12 @@ class Server extends Events{
         })
           
           
-        this.app.post('/stats', (req, res) => {
+        this.app.post('/stats', (req, res) => {       
             try{
+                if(!req.headers.authorization) return res.status(404).end()
+                const authProvided = req.headers.authorization
+                const authKey = Buffer.from(this.config.authorizationkey).toString('base64');
+                if(authKey !== authProvided) return res.status(404).end();
                 const rawdata = new Schema(req.body).toObject();
                 FormData._patch(rawdata);
                 setTimeout(()=> {
@@ -94,6 +98,10 @@ class Server extends Events{
         })
 
         this.app.post(`/deleteShards`, (req, res) =>{
+            if(!req.headers.authorization) return res.status(404).end()
+            const authProvided = req.headers.authorization
+            const authKey = Buffer.from(this.config.authorizationkey).toString('base64');
+            if(authKey !== authProvided) return res.status(404).end();
             FormData.shard.clear();
         })
     }
