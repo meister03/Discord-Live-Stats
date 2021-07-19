@@ -102,7 +102,7 @@ class Server extends Events{
 
     _checkIfShardAlive(shardID){
         const data = FormData.shardData(Number(shardID));
-        const diff = Number(data.lastupdated + this.config.markShardasDeadafter);
+        const diff = Number(data.lastupdated + this.config.markShardasDeadafter -1000);
         console.log((Date.now()-diff))
         if(diff > Date.now()) return ;
         data.upsince = 0;

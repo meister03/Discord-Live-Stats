@@ -30,7 +30,7 @@ function shardStats(i) {
     const timeout = setInterval(() => {
       $.get(`/shard?shardid=${i}`, (newdata, status) => { data = newdata; })
       $('#exampleModalTitle').text(`Status of Shard ${i}`);
-      $(`#modal-shard-status${i}`).text(` ` + data.status + ` since ` + formatTime(data.upsince, data.total.lastupdated));
+      $(`#modal-shard-status${i}`).text(` ` + data.status + ` since ` + formatTime(data.upsince, data.lastupdated));
       $(`#modal-shard-cpu${i}`).text(` ` + data.cpu);
       $(`#modal-shard-ram${i}`).text(` ` + data.ram);
       $(`#modal-shard-ping${i}`).text(` ` + data.ping);

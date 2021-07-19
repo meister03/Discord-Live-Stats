@@ -199,6 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     %>
                     <div id="shard-button<%=i%>" class="shard-button">
                       <p id="shard-button-name<%=i%>" class="shard-button <%=post.color%>"><b>Shard <%=post.id %></b></p>
+                      
                       <div class="shard-button ressource"><i class="fa fa-cog"></i><span>
                           <button id="shard-button-ressource-stats<%=i%>" title="Statistics"
                             class="shard-button managestats" onClick="shardStats(`<%=i%>`)"><i
@@ -210,9 +211,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             class="shard-button managered" onClick="killShard(`<%=i%>`)"><i
                               class="fa fa-stop"></i></button>
                         </span></div>
-                      <p id="shard-button-log<%=i%>" class="shard-button log <%=classname2%>">
-                        <%=post.message%>
-                      </p>
+                        <p id="shard-button-log<%=i%>" class="shard-button log <%=classname2%>">
+                          <%=post.message%>
+                        </p>
                     </div>
                     <% i++ } )%>
                 </div>
