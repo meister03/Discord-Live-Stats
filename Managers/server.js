@@ -3,8 +3,8 @@ const Passport = require("discord-passport");
 const Events = require('events');
 const express = require('express')
 
-const form = require('./formdata.js');
-const Schema = require("./schema.js");
+const form = require('../Structures/formdata.js');
+const Schema = require("../Structures/schema.js");
 const FormData = new form();
 
 class Server extends Events{
@@ -18,12 +18,12 @@ class Server extends Events{
     }
 
     _applytoApp(){
-        this.app.use(express.static(__dirname + '/'));
+        this.app.use(express.static(`../Frontend/`));
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(bodyParser.json());
         this.app.engine('html', require('ejs').renderFile);
         this.app.set('view engine', 'ejs');
-        this.app.set('views', __dirname);
+        this.app.set('views',  '../Frontend');
     }
     _buildRoute(){
         this.app.get(`/${this.config.login_path}`,(req, res) => {
@@ -95,7 +95,6 @@ class Server extends Events{
 
         this.app.post(`/deleteShards`, (req, res) =>{
             FormData.shard.clear();
-            
         })
     }
 
@@ -103,7 +102,6 @@ class Server extends Events{
     _checkIfShardAlive(shardID){
         const data = FormData.shardData(Number(shardID));
         const diff = Number(data.lastupdated + this.config.markShardasDeadafter -1000);
-        console.log((Date.now()-diff))
         if(diff > Date.now()) return ;
         data.upsince = 0;
         data.status = 5;
@@ -113,7 +111,18 @@ class Server extends Events{
     }
 
     _validateOptions(){
+        if(!this.config.bot) throw new Error(`Missing Bot Parameters such as redirect_uri, client_secret...`)
+        if(!this.config.bot.client_id)  throw new Error(`Missing Parameter: client_id has not been provided`)
+        if(!this.config.bot.client_secret)  throw new Error(`Missing Parameter: client_secret has not been provided`)
+    
+        if(!this.config.stats_uri)  throw new Error(`Missing Parameter: stats_uri has not been provided`)
+        if(!this.config.redirect_uri) throw new Error(`Missing Parameter: redirect_uri has not been provided`)
+        if(!this.config.owners)  throw new Error(`Missing Parameter: owners has not been provided`)
+        
+        if(!this.config.postinterval) this.config.postinterval = 2500;
+        if(!this.config.markShardasDeadafter) this.config.markShardasDeadafter = 10000;
 
+        if(this.config.postinterval > this.config.markShardasDeadafter) throw new Error(`Post Interval can not be bigger than the "maskShardasDeadafter" Argument`)
     }
 }
 module.exports = Server;
