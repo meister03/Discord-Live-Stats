@@ -26,13 +26,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script>
   
     $(document).ready(function () {
-    
-  
-    });
       setInterval(() => {
-        $.post('stats', {test: true})
         refreshStats();
-      },5000)
+      },1000)
+    });
     
   </script>
 </head>
@@ -169,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p class="shard-modal-button">
                   <b><i id="general-status" class="fa fa-circle <%=data.color%>"
                         aria-hidden="true">
-                        <%=data.status%> since <%=data.start%>
+                        <%=data.status%>
                       </i></b></p>
                   <p class="shard-modal-button"><b><i id="general-status-cpu" class="fa fa-microchip"
                         aria-hidden="true">
@@ -184,7 +181,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </i></b></p>
                   <p class="shard-modal-button"><b><i id="general-status-servercount" class="fa fa-server"
                         aria-hidden="true">
-                        <%=data.servercount%>
+                        <%=data.guildcount%>
                       </i></b></p>
                 </div>
               </div>
@@ -198,12 +195,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <div id="shard-status-card" class="card-body">
                   <% let i=0; posts.forEach((post)=> {
-
-                    const classname = (post.status === 'online' ? 'green' : 'red');
-                    const classname2 = (post.status === 'online' ? 'normal' : 'alert');
+                    const classname2 = (post.color === 'green' ? 'normal' : 'redalert');
                     %>
                     <div id="shard-button<%=i%>" class="shard-button">
-                      <p id="shard-button-name<%=i%>" class="shard-button <%=classname%>"><b>Shard <%=post.id %></b></p>
+                      <p id="shard-button-name<%=i%>" class="shard-button <%=post.color%>"><b>Shard <%=post.id %></b></p>
                       <div class="shard-button ressource"><i class="fa fa-cog"></i><span>
                           <button id="shard-button-ressource-stats<%=i%>" title="Statistics"
                             class="shard-button managestats" onClick="shardStats(`<%=i%>`)"><i

@@ -70,6 +70,7 @@
     padding: 0px;
     float: left;
     color: white;
+    z-index: auto;
   }
 
   .shard-button.blue{
@@ -85,17 +86,20 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
     margin: 0px 43px 0px 90px;
-    padding: 0px;
+    padding: 0px; /*turn to 0px*/
+    z-index: auto;
   }
   
  
 
-  .shard-button.log.alert{
+  .shard-button.log.redalert{
     color: #ED4245;
+    z-index: inherit;
   }
 
   .shard-button.log.normal{
     color: #43b581;
+    z-index: inherit;
   }
 
   
@@ -149,6 +153,7 @@
     float: right;
     padding: 0px;
     color: white;
+    z-index: auto,
   }
 
   .shard-button.ressource span{
@@ -214,7 +219,7 @@
 
 
 .shard-modal-button{
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: Tahoma, Verdana, sans-serif;
   margin-left: 7px;
   margin-right: 7px;
   margin-top: 2px;
