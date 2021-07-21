@@ -11,7 +11,30 @@
     "express": "^4.17.1",
     "node-fetch": "^2.6.1"
   },
-  "keywords": [],
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meister03/discord-live-stats.git"
+  },
+  "publishConfig": {
+  "access": "public"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "discord-dashboard",
+    "discord-panel",
+    "discord-bot-status",
+    "status-page",
+    "live-data",
+    "bot-stats",
+    "discord-live-stats",
+    "framework"
+  ],
   "author": "meister03",
-  "license": "A"
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/meister03/discord-live-stats/issues"
+  },
+  "homepage": "https://github.com/meister03/discord-live-stats#readme"
 }
