@@ -22,13 +22,15 @@ You can download it from npm:
 ```cli
 npm i discord-live-stats
 ```
+- Typings are on Work for more TypeScript-Devs 
 
 # Getting Started:
 First of all, you have to create a new File, which can be named `server.js`.
 In the server.js File you will insert the Code below, consider to install the NPM Package `express` with `npm i express`
+
 Scrolldown for Api References
 
-File: server.js
+File: `server.js`
 ```js
 const Stats  = require('discord-live-stats');
 
@@ -38,11 +40,11 @@ const app = express();
 const client = new Stats.Server(app, {
     bot: {
         name: "Your Bot Name",
-        icon: "url('Your Discord Bot Image')",
+        icon: "Your Discord Bot Image URL",
         website: "Your Website",
         client_id: "Discord Bot ID",
         client_secret: "Discord Bot Client_Secret (Not Token)"
-    }
+    },
     stats_uri: "http://localhost:3000/", //Base URL
     redirect_uri: "http://localhost:3000/login", //Landing Page
     owners: ["Bot_Onwer1", "Owner2"],
@@ -109,4 +111,4 @@ If you encounter any problems feel free to open an issue in our <a href="https:/
 # Credits
 Partial Credits goes to [ADMIN LTE](https://adminlte.io/) for a good Starter Template, CSS and the Plugins...
 
-**When you create Forks of this Packages, do not remove the Credits :)**
+**When you create Forks of this Package, do not remove the Credits :)**

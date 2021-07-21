@@ -4,6 +4,7 @@ class Client{
         this.client = client;
         this.config = config;
         this.shardMessage = new Map();
+        this._validateOptions();
         this.deleteCachedShardStatus();
         this._attachEvents();
         this._autopost();
@@ -63,6 +64,12 @@ class Client{
                 }
             }
         })
+    }
+
+    _validateOptions(){
+        if(!this.config.authorizationkey) throw new Error('Pls provide your choosen Authorization Key for verifying Requests.');
+        if(this.config.postinterval && isNaN(this.config.postinterval)) throw new Error('The PostInterval is not a valid Time. Provide the Interval in milliseconds');
+        if(!this.config.postinterval) this.config.postinterval = 1000;
     }
 }
 module.exports = Client;

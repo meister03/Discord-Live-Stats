@@ -30,7 +30,6 @@ class Server extends Events{
             res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${this.config.bot.client_id}&redirect_uri=${this.config.redirect_uri}&response_type=code&scope=${this.config.scope.join('+')}`)
         })
         this.app.get('/login', async (req, res) => {
-            return res.render("starter", {posts: FormData.humanize(FormData.shardData(0, {all: true})), config: this.config, data: FormData.humanize(FormData.totalData())});
             try{
                 const code = req.query.code;
                 if(!code) return res.redirect('/');
@@ -43,7 +42,6 @@ class Server extends Events{
                 })
                 await passport.open(); // Trades your code for an access token and gets the basic scopes for you.
                 if(this.config.owners.includes(passport.user.id)){
-                    console.log(FormData.humanize(FormData.totalData()))
                     res.render("starter", {posts: FormData.humanize(FormData.shardData(0, {all: true})), config: this.config, data: FormData.humanize(FormData.totalData())});
                 }else{
                     return res.end(`Access denied!`);
