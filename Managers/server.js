@@ -1,7 +1,8 @@
 const bodyParser = require("body-parser");
 const Passport = require("discord-passport");
 const Events = require('events');
-const express = require('express')
+const express = require('express');
+const path = require('path');
 
 const form = require('../Structures/formdata.js');
 const Schema = require("../Structures/schema.js");
@@ -18,12 +19,12 @@ class Server extends Events{
     }
 
     _applytoApp(){
-        this.app.use(express.static(`../Frontend/`));
+        this.app.use(express.static(path.join(__dirname,`../Frontend`)));
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(bodyParser.json());
         this.app.engine('html', require('ejs').renderFile);
         this.app.set('view engine', 'ejs');
-        this.app.set('views',  '../Frontend');
+        this.app.set('views',  path.join(__dirname,`../Frontend`));
     }
     _buildRoute(){
         this.app.get(`/${this.config.login_path}`,(req, res) => {
