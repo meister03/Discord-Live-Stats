@@ -8,7 +8,7 @@ The ultimate Package for checking Shard-Live-Stats & Bot-Live-Stats. See & Get i
 - Shard & Bot Status, RAM, CPU, PING, GuildCount & Last Message (Debug Message)
 ### On Work:
 - Manage Shard from Dashboard (kill, respawn...)
-- Guild Rentetion
+- Guild Rentention
 - Notification on Discord & Browser, when Shards are offline
 - Commands Stats & User Activity
 
@@ -22,7 +22,7 @@ You can download it from npm:
 ```cli
 npm i discord-live-stats
 ```
-- Typings are on Work for more TypeScript-Devs 
+- Typings are on Work for TypeScript-Devs 
 
 # Getting Started:
 First of all, you have to create a new File, which can be named `server.js`.
