@@ -4,8 +4,10 @@ const Events = require('events');
 const express = require('express');
 const path = require('path');
 
+
 const form = require('../Structures/formdata.js');
 const Schema = require("../Structures/schema.js");
+const Code = require('./code.js')
 const FormData = new form();
 
 class Server extends Events{
@@ -13,6 +15,8 @@ class Server extends Events{
         super()
         this.app = app;
         this.config = config;
+        this.killShard = new Map();
+        this.code = new Code(config);
         this._validateOptions();
         this._applytoApp();
         this._buildRoute();
@@ -33,6 +37,9 @@ class Server extends Events{
         this.app.get('/login', async (req, res) => {
             try{
                 const code = req.query.code;
+                if(this.code.checkSession(code)){
+                    return res.render("starter", {posts: FormData.humanize(FormData.shardData(0, {all: true})),secret: {code: code},config: this.config, data: FormData.humanize(FormData.totalData())});
+                }
                 if(!code) return res.redirect('/');
                 const passport = new Passport({
                     code: code,
@@ -43,7 +50,8 @@ class Server extends Events{
                 })
                 await passport.open(); // Trades your code for an access token and gets the basic scopes for you.
                 if(this.config.owners.includes(passport.user.id)){
-                    res.render("starter", {posts: FormData.humanize(FormData.shardData(0, {all: true})), config: this.config, data: FormData.humanize(FormData.totalData())});
+                    this.code.addSession(code)
+                    res.render("starter", {posts: FormData.humanize(FormData.shardData(0, {all: true})),secret: {code: code},config: this.config, data: FormData.humanize(FormData.totalData())});
                 }else{
                     return res.end(`Access denied!`);
                 }
@@ -76,6 +84,18 @@ class Server extends Events{
                 this.emit('error', error)
             }
         })
+
+        this.app.get("/killShard", (req, res) => {
+            try{
+                const shardid = req.query.shardid;
+                const code = req.query.code;
+                if(!this.code.checkSession(code)) return res.end(`AUTHENTICATION FAILED | RELOAD & LOGIN AGAIN`);
+                this.killShard.set(Number(shardid), true)
+                return res.end();
+            }catch(error){
+                this.emit('error', error)
+            }
+        })
           
           
         this.app.post('/stats', (req, res) => {       
@@ -89,7 +109,13 @@ class Server extends Events{
                 setTimeout(()=> {
                     this._checkIfShardAlive(rawdata.id)
                 }, this.config.markShardasDeadafter)
-                res.send({status: `Success`})
+
+                if(this.killShard.has(rawdata.id)){
+                    this.killShard.delete(rawdata.id)
+                    res.send({kill: true, shard: rawdata.id})
+                }else{
+                    res.send({status: `Success`})
+                }
                 return res.end();
             }catch(error){
                 this.emit('error', error)
@@ -108,6 +134,7 @@ class Server extends Events{
 
     _checkIfShardAlive(shardID){
         const data = FormData.shardData(Number(shardID));
+        if(!data) return;
         const diff = Number(data.lastupdated + this.config.markShardasDeadafter -1000);
         if(diff > Date.now()) return ;
         data.upsince = 0;
@@ -130,6 +157,7 @@ class Server extends Events{
 
         if(!this.config.postinterval) this.config.postinterval = 2500;
         if(!this.config.markShardasDeadafter) this.config.markShardasDeadafter = 10000;
+        if(!this.config.loginExpire) this.config.loginExpire = 60000*15;
 
         if(this.config.postinterval > this.config.markShardasDeadafter) throw new Error(`Post Interval can not be bigger than the "maskShardasDeadafter" Argument`)
     }

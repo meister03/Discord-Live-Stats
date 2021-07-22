@@ -2,12 +2,13 @@
 <p align="center"><img src="https://img.shields.io/npm/v/discord-live-stats"> <img src="https://img.shields.io/npm/dm/discord-live-stats?label=downloads"> <img src="https://img.shields.io/npm/l/discord-live-stats"> <img src="https://img.shields.io/github/repo-size/meister03/discord-live-stats">  <a href="https://discord.gg/YTdNBHh"><img src="https://discordapp.com/api/guilds/697129454761410600/widget.png" alt="Discord server"/></a></p>
 
 # Discord-Live-Stats Dashboard
-The ultimate Package for checking Shard-Live-Stats & Bot-Live-Stats. See & Get informed, what happens in/with your Bot
+The ultimate Package for checking Shard-Live-Stats & Bot-Live-Stats. See & Get informed and get control over each Shard.
 
 # Features:
 - Shard & Bot Status, RAM, CPU, PING, GuildCount & Last Message (Debug Message)
+- Kill specific Shards with the Button
 ### On Work:
-- Manage Shard from Dashboard (kill, respawn...)
+- Manage Shard from Dashboard (respawn...)
 - Guild Rentention
 - Notification on Discord & Browser, when Shards are offline
 - Commands Stats & User Activity

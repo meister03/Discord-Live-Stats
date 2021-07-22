@@ -24,10 +24,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script text="text/javascript" src="/functions.js"></script>
   <script>
-  
+    
     $(document).ready(function () {
       setInterval(() => {
-        refreshStats();
+        refreshStats(0, `<%=secret.code%>`);
       },1000)
     });
     
@@ -194,7 +194,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <h5 class="m-0 white"><b>Shard Status</b></h5>
                 </div>
                 <div id="shard-status-card" class="card-body">
-                  <% let i=0; posts.forEach((post)=> {
+                  <% 
+                    const code = secret.code;
+                    let i=0; posts.forEach((post)=> {
                     const classname2 = (post.color === 'green' ? 'normal' : 'redalert');
                     %>
                     <div id="shard-button<%=i%>" class="shard-button">
@@ -202,13 +204,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       
                       <div class="shard-button ressource"><i class="fa fa-cog"></i><span>
                           <button id="shard-button-ressource-stats<%=i%>" title="Statistics"
-                            class="shard-button managestats" onClick="shardStats(`<%=i%>`)"><i
+                            class="shard-button managestats" onClick="shardStats(`<%=i%>`, `<%=code%>`)"><i
                               class="fa fa-hdd"></i></button>
                           <button id="shard-button-ressource-refresh<%=i%>" title="Refresh Stats"
-                            class="shard-button managegreen" onClick="refreshStats(`<%=i%>`)"><i
+                            class="shard-button managegreen" onClick="refreshStats(`<%=i%>`, `<%=code%>`)"><i
                               class="fa fa-retweet"></i></button>
                           <button id="shard-button-ressource-kill<%=i%>" title="Kill Shard"
-                            class="shard-button managered" onClick="killShard(`<%=i%>`)"><i
+                            class="shard-button managered" onClick="killShard(`<%=i%>`, `<%=code%>`)"><i
                               class="fa fa-stop"></i></button>
                         </span></div>
                         <p id="shard-button-log<%=i%>" class="shard-button log <%=classname2%>">

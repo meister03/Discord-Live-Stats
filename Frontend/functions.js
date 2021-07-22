@@ -43,7 +43,7 @@ function shardStats(i) {
 }
 
 
-function refreshStats(i) {
+function refreshStats(i, code) {
   try {
     $.get('status', (data, status) => {
       if (!data) return;
@@ -52,7 +52,6 @@ function refreshStats(i) {
       for (let i = 0; i < ids.length; i++) {
         const shard = newdata.find((x => `shard-button${x.id}` === ids[i]));
         if (shard !== undefined) continue;
-        console.log(ids[i])
         $(`#${ids[i]}`).remove();
       }
       for (let i = 0; i < newdata.length; i++) {
@@ -64,9 +63,9 @@ function refreshStats(i) {
                     <p id= "shard-button-name${i}" class="shard-button ${color}"><b>Shard ${newdata[i].id}</b>
                     </p>
                     <div class="shard-button ressource"><i class="fa fa-cog"></i><span>
-                        <button id="shard-button-ressource-stats${i}" title="Statistics" class="shard-button managestats" onClick="shardStats(${i})"><i class="fa fa-hdd"></i></button>
-                        <button id="shard-button-ressource-refresh${i}" title="Refresh Stats"class="shard-button managegreen" onClick="refreshStats(${i})"><i class="fa fa-retweet"></i></button>
-                        <button id="shard-button-ressource-kill${i}" title="Kill Shard" class="shard-button managered" onClick="killShard(${i})"><i class="fa fa-stop"></i></button>
+                        <button id="shard-button-ressource-stats${i}" title="Statistics" class="shard-button managestats" onClick="shardStats(${i}, ${code})"><i class="fa fa-hdd"></i></button>
+                        <button id="shard-button-ressource-refresh${i}" title="Refresh Stats"class="shard-button managegreen" onClick="refreshStats(${i}, ${code})"><i class="fa fa-retweet"></i></button>
+                        <button id="shard-button-ressource-kill${i}" title="Kill Shard" class="shard-button managered" onClick="killShard(${i}, ${code})"><i class="fa fa-stop"></i></button>
                         </span></div>
                     <p id="shard-button-log${i}" class="shard-button log ${classname}">${newdata[i].message}</p>
                   </div>`)
@@ -89,8 +88,11 @@ function refreshStats(i) {
   }
 }
 
-function killShard(i) {
-  alert("This function is currently on work :( ");
+function killShard(i, code) {
+  $.get(`/killShard?shardid=${i}&code=${code}`, (data, status) => {
+    $(`#shard-button-log${i}`).css('color', '#ED4245')
+    $(`#shard-button-log${i}`).text(`Killing Shard...`);
+  })
 }
 
 

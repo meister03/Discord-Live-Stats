@@ -32,19 +32,19 @@ class Client{
                  'Authorization': Buffer.from(this.config.authorizationkey).toString('base64'),
                  'Content-Type': 'application/json' 
              },
-           }).catch((e) => console.log(new Error(e)))
+           }).then(res => res.json()).then((m) => this._handleMessage(m)).catch((e) => console.log(new Error(e)))
         }
     }
 
     deleteCachedShardStatus(){
-          fetch(`${this.config.stats_uri}deleteShards`, {
+       return   fetch(`${this.config.stats_uri}deleteShards`, {
             method: 'post',
-            body:  JSON.stringify({shards: 'all'}),
+            body:  JSON.stringify({kill: true, shards: 'all'}),
             headers: { 
                 'Authorization': Buffer.from(this.config.authorizationkey).toString('base64'),
                 'Content-Type': 'application/json' 
             },
-          }).catch((e) => console.log(new Error(e)))
+          }).catch((e) => e)
     }
 
     _autopost(){
@@ -64,6 +64,13 @@ class Client{
                 }
             }
         })
+    }
+
+    _handleMessage(message){
+        if(!message.kill) return;
+        if(message.shard === undefined) return;
+        this.client.ws.shards.get(message.shard)?.destroy()
+        return;
     }
 
     _validateOptions(){
