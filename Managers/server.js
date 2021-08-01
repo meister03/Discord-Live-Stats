@@ -31,7 +31,7 @@ class Server extends Events{
         this.app.set('views',  path.join(__dirname,`../Frontend`));
     }
     _buildRoute(){
-        this.app.get(`/${this.config.login_path}`,(req, res) => {
+        this.app.get(`/${(this.config.login_path ||'')}`,(req, res) => {
             res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${this.config.bot.client_id}&redirect_uri=${this.config.redirect_uri}&response_type=code&scope=${this.config.scope.join('+')}`)
         })
         this.app.get('/login', async (req, res) => {
@@ -158,6 +158,7 @@ class Server extends Events{
         if(!this.config.postinterval) this.config.postinterval = 2500;
         if(!this.config.markShardasDeadafter) this.config.markShardasDeadafter = 10000;
         if(!this.config.loginExpire) this.config.loginExpire = 60000*15;
+        if(!this.config.login_path) this.config.login_path = '';
 
         if(this.config.postinterval > this.config.markShardasDeadafter) throw new Error(`Post Interval can not be bigger than the "maskShardasDeadafter" Argument`)
     }
