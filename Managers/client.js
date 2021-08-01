@@ -16,13 +16,13 @@ class Client{
   
         for(let i = 0; i < shards.length; i++){
           const body =  {
-             "id": shards[i]?.id,
-             "status": shards[i]?.status,
+             "id": shards[i] ? shards[i].id : NaN,
+             "status": shards[i]? shards[i].status : 5,
              "cpu": (Math.random()*3).toFixed(2),
              "ram": getRamUsageinMB(),
-             "message": (this.shardMessage.get(shards[i]?.id) || `No Message Available`),
-             "ping": shards[i]?.ping,
-             "guildcount": (guilds?.filter(x => x.shardID === shards[i].id)?.length || 0),
+             "message": (this.shardMessage.get(shards[i]? shards[i].id : NaN) || `No Message Available`),
+             "ping": shards[i]? shards[i].ping : NaN,
+             "guildcount": (guilds ? guilds.filter(x => x.shardID === shards[i].id).length : 0),
              "upsince": this.client.uptime,
            };
            fetch(`${this.config.stats_uri}stats`, {
@@ -69,8 +69,8 @@ class Client{
     _handleMessage(message){
         if(!message.kill) return;
         if(message.shard === undefined) return;
-        this.client.ws.shards.get(message.shard)?.destroy()
-        return;
+        if(this.client.ws.shards.has(message.shard)) return this.client.ws.shards.get(message.shard).destroy();
+        return false;
     }
 
     _validateOptions(){
