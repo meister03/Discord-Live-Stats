@@ -2,11 +2,11 @@
 <p align="center"><img src="https://img.shields.io/npm/v/discord-live-stats"> <img src="https://img.shields.io/npm/dm/discord-live-stats?label=downloads"> <img src="https://img.shields.io/npm/l/discord-live-stats"> <img src="https://img.shields.io/github/repo-size/meister03/discord-live-stats">  <a href="https://discord.gg/YTdNBHh"><img src="https://discordapp.com/api/guilds/697129454761410600/widget.png" alt="Discord server"/></a></p>
 
 # Discord-Live-Stats Dashboard
-The ultimate Package for checking Shard-Live-Stats & Bot-Live-Stats. See & Get informed and get control over each Shard.
+The ultimate package for checking Shard-Live-Stats & Bot-Live-Stats. See & get informed and get control over each Shard.
 
 # Features:
 - Shard & Bot Status, RAM, CPU, PING, GuildCount & Last Message (Debug Message)
-- Kill specific Shards with the Button
+- Kill specific Shards with a Button
 ### On Work:
 - Manage Shard from Dashboard (respawn...)
 - Guild Rentention
@@ -17,19 +17,20 @@ The ultimate Package for checking Shard-Live-Stats & Bot-Live-Stats. See & Get i
 ![](https://media.discordapp.net/attachments/711563835424768063/867100235352637480/unknown.png)
 
 ### See below for the Docs
-**If you need help feel free to join our <a href="https://discord.gg/YTdNBHh">discord server</a>. We will provied you all help ☺**
+**If you need help feel free to join our <a href="https://discord.gg/YTdNBHh">discord server</a>. We will provide you all the help you need ☺**
 # Download
 You can download it from npm:
 ```cli
 npm i discord-live-stats
 ```
-- Typings are on Work for TypeScript-Devs 
+- Typings are on work for TypeScript-Devs 
 
 # Getting Started:
-First of all, you have to create a new File, which can be named `server.js`.
-In the server.js File you will insert the Code below, consider to install the NPM Package `express` with `npm i express`
+First of all, you have to create a new File, which can be named `server.js`. 
 
-Scrolldown for Api References
+In the server.js File you will need to insert the Code below, and install the NPM Package `express` by using `npm i express`
+
+Scroll down for Api References
 
 File: `server.js`
 ```js
@@ -41,32 +42,32 @@ const app = express();
 const client = new Stats.Server(app, {
     bot: {
         name: "Your Bot Name",
-        icon: "Your Discord Bot Image URL",
-        website: "Your Website",
+        icon: "Your Discord Bot Avatar URL",
+        website: "Your Website URL",
         client_id: "Discord Bot ID",
         client_secret: "Discord Bot Client_Secret (Not Token)"
     },
     stats_uri: "http://localhost:3000/", //Base URL
     redirect_uri: "http://localhost:3000/login", //Landing Page
-    owners: ["Bot_Onwer1", "Owner2"],
+    owners: ["Bot_Owner1", "Bot_Owner2"],
     authorizationkey: "Your Password for verifying requests",
 })
 
 client.on('error', console.log)
 
 app.listen(3000, () => {
-  console.log("Application started and Listening on port 3000");
+  console.log("Application started, listening on port 3000!");
 });
 ```
-You can start now your Dashboard with `node server.js`.
+You can start now start your Dashboard with `node server.js`.
 Now go to the `stats_uri` link or your choosen link and you should be redirected to the Dashboard with no Data.
 
 ## Pushing Data of your Client on the Dashboard
-Follow the upper step for doing this step.
+Follow the upper step before doing this step.
 
-Open your Bot.js File, where you login in the Client and insert this:
+Open your `bot.js` File, where you login in the Client and insert this:
 
-File: bot.js
+File: `bot.js`
 ```js
 const Stats  = require('discord-live-stats');
 const Discord = require('discord.js');
@@ -77,12 +78,12 @@ const Poster = new Stats.Client(client, {
     authorizationkey: "Your Password for verifying requests | Same as in Server.js",
 })
 /*
-* YOUR CODE STUFF
+* YOUR BOT CODE STUFF
 */
-client.login(`Your_Token`)
+client.login(`Your_Bot_Token`)
 ```
 
-When you start your Bot via Sharding or without, the Dashboard should show some Data such as Status, Ram, Cpu, Ping, Guildcount and more... of each Shard & totally.
+When you start your bot with or without Sharding, the Dashboard should show some information such as Status, Ram, Cpu, Ping, Guildcount and more data of each Shard and of all guilds in total.
 
 # API References:
 
@@ -104,10 +105,10 @@ When you start your Bot via Sharding or without, the Dashboard should show some 
 | markShardasDeadafter | 5000ms |How long to wait until the Shard is marked as dead on the Dashboard, when no new Data has been recieved |
 
 
-**Have fun and feel free to contribute/suggest or contact me on my Discord Server or per DM on `Meister#9667`**
+**Have fun! and feel free to contribute/suggest or contact me on my <a href="https://discord.gg/Yb26ACzFSP">Discord Server</a> or DM me `Meister#9667`**
 
 # Bugs, Glitches and Issues
-If you encounter any problems feel free to open an issue in our <a href="https://github.com/meister03/discord-live-stats/issues">github repository or join the Discord Server.</a>
+If you encounter any problems, feel free to <a href="https://github.com/meister03/discord-live-stats/issues">open up an issue</a> in our github repository or <a href="https://discord.gg/Yb26ACzFSP">join our discord server</a>!
 
 # Credits
 Partial Credits goes to [ADMIN LTE](https://adminlte.io/) for a good Starter Template, CSS and the Plugins...
