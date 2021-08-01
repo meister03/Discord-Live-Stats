@@ -60,6 +60,9 @@ app.listen(3000, () => {
 });
 ```
 You can start now start your Dashboard with `node server.js`.
+
+Go to the Discord Developer Portal and to Authorization and insert your redirect_uri there.
+
 Now go to the `stats_uri` link or your choosen link and you should be redirected to the Dashboard with no Data.
 
 ## Pushing Data of your Client on the Dashboard
