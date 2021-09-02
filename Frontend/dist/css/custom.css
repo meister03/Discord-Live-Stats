@@ -16,8 +16,14 @@
     border-color: #36393f;
 }
 
-
-
+.fa:before, .far:before, .fas:before {
+    font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+}
+.fa, .far, .fas {
+    font-family: sans-serif;
+    font-weight: 500;;
+}
 
   .shard-button.green{
     background-color:#43b581;
