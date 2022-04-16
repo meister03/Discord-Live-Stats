@@ -22,7 +22,7 @@ class Client{
              "ram": getRamUsageinMB(),
              "message": (this.shardMessage.get(shards[i]? shards[i].id : NaN) || `No Message Available`),
              "ping": shards[i]? shards[i].ping : NaN,
-             "guildcount": (guilds ? guilds.filter(x => x.shardID === shards[i].id).length : 0),
+             "guildcount": (guilds ? guilds.filter(x => x.shardId === shards[i].id).length : 0),
              "upsince": this.client.uptime,
            };
            fetch(`${this.config.stats_uri}stats`, {
